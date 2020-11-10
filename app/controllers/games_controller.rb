@@ -26,11 +26,11 @@ class GamesController < ApplicationController
   #   end
   # end
 
-  def included?(params, letters)
-    params[:word].chars.all? { |letter| params[:word].count(letter) <= @letters.count(letter) }
+  def included?(word, letters)
+    word.chars.all? { |letter| word.count(letter) <= letters.count(letter) }
   end
 
-  def english_word?
+  def english_word?(word)
     response = open("https://wagon-dictionary.herokuapp.com/#{params[:word]}")
     json = JSON.parse(response.read)
     return json['found']
